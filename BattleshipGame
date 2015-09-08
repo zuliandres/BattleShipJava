@@ -158,7 +158,7 @@ public class BattleshipGame
         if (play == JOptionPane.YES_OPTION)
         {
         String name = JOptionPane.showInputDialog("Please enter your name: ");
-        JOptionPane.showMessageDialog(null, "Welcome, Commander " + name + "!\n\n" +
+        JOptionPane.showMessageDialog(null, "Welcome, Captain " + name + "!\n\n" +
                 "The goal of the game is to find the 4  hidden ships,\n"
                 + " the output section will display a 5x5 board with your "
                 + "attempted attacks.\n"
