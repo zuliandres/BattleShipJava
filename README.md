@@ -1,4 +1,4 @@
-# BattleShipJava
+# BattleshipGameJava
 
 import javax.swing.JOptionPane;
 
