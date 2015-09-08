@@ -1,0 +1,171 @@
+import java.util.Random;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Katherine
+ */
+public class Battleship 
+{
+   //Instance Variables 
+    int[][] game;                       // An int array to create the board
+    public static int hits = 0;         // Number of hits
+    public static int misses = 0;       // Number of misses
+    public static int games = -1;       // Number of games played
+    public static int hitsGame = 0;     // Total number of hits for all games
+    public static int missesGame = 0;   // Total number of misses for all games
+    private String transcript;          // Record of players guesses
+    
+    //Creates an array with 5 rows and 5 columns, then places 4 random ships
+    //on the board.
+    public Battleship()
+    {
+        game = new int[5][5];
+        placeShips();
+        
+        //Updates the number of games played
+        games++;
+        transcript = "\n\nYour previous guesses include:";
+        
+        //Initializes hits and misses to start at 0
+        hitsGame = 0;  
+        missesGame = 0;
+    }
+    
+    //********************Accessors*******************************************//
+    //Accesses the current state of the transcript
+    //@return transcript: the current history of the players guesses
+    public String getTranscript()
+    {
+        return transcript;
+    }
+    
+    //Accesses the number of hits throug the life of the current game
+    //@return hitsGame: number of hits per one game
+    public int hits()
+    {
+        return hitsGame;
+    }
+    
+  
+//*********************************Methods************************************//
+
+    //Creates four random locations on the game board
+    public void placeShips()
+    {
+        Random locations = new Random();
+        int row; int column;
+        for(int i =0; i < 4; i++)
+        {   do
+        {
+            //Generates a random row & column integer from 0 to 4
+            row = locations.nextInt(5);    
+            column = locations.nextInt(5);
+        }
+        while (game[row][column] == 1);
+            
+            //Places the ship in the randomly generated location
+            game[row][column] = 1;
+        }
+    }
+    
+    
+    //Method that allows user to enter a guess consisting of a row number and
+    //column number
+    //@param row: the row number of the desired target
+    //@param column: the column rumber of the desired target
+    public void guess(int row, int column)
+    {
+        //Updates the transcript so the user can see their past guesses
+        //in format- row: a   column: b
+        transcript += "\nRow: " + (row + 1) + "        Column: " + (column + 1);
+        int guess = game[row][column];
+        if(guess == 1)
+        {
+            game[row][column] = 2;
+            
+            //Displays the current state of the game board
+            printGame();
+            JOptionPane.showMessageDialog(null, "Battleship Down!", "Congrats", 
+                    JOptionPane.PLAIN_MESSAGE);
+            hits++;
+            hitsGame++;
+        }
+        else
+        {
+            game[row][column] = 3;
+            //Displays the current state of the game board
+            printGame();
+            JOptionPane.showMessageDialog(null, "Missed... Try again!", 
+                    "Missed", JOptionPane.ERROR_MESSAGE);
+            misses++;
+            missesGame++;
+        }
+              
+    }
+    
+    
+    //Displays the number fo the game you just played
+    //the board of that game, the number of hits and the misses 
+    public void print()
+    {
+        System.out.println("\nGame #" + games);
+        for (int[] game1 : game) {
+            for (int j = 0; j < game1.length; j++) {
+                System.out.print("\t" + game1[j]);
+            }
+            System.out.println();
+        }
+        
+        
+        System.out.println("\tHits \tMisses");
+        System.out.println("\t" + hitsGame + "\t" + missesGame + "\n");
+    }
+    
+    
+    //Displays the current state of the board throughout the life of the game,
+    //and the hits and misses so far.
+    public void printGame()
+    {
+        System.out.println(" Current Board Status");
+        System.out.println("======================");
+        for (int[] game1 : game) {
+            for (int j = 0; j < game1.length; j++) {
+                if (game1[j] == 1) {
+                    System.out.print("\t0");
+                } else {
+                    System.out.print("\t" + game1[j]);
+                }
+            }
+            System.out.println();
+        }
+        
+        System.out.println("\tHits:" + "\tMisses:");
+        System.out.println("\t" + hitsGame + "\t" + missesGame);
+                
+    }
+    
+    //Displays the statistics at the end of the game.
+    public void stats()
+    {
+        System.out.println("\nHope you had fun! Here are your stats for"
+                + " this round of play:");
+        System.out.println("You played " + games + " game(s).");
+        System.out.println("Throughout the game(s)you hit " + hits + " of " + (games*4)
+                + " possible targets.");
+        System.out.println("Better luck next time!");
+    }
+    
+    //Resets the hits, misses, and record of games played
+    public void reset()
+    {
+        hits = 0;
+        misses = 0;
+        games = 0;
+    }
+    
+    
+    
+}
+
+
