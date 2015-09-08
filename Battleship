@@ -85,21 +85,23 @@ public class Battleship
             game[row][column] = 2;
             
             //Displays the current state of the game board
+            hits++;
+            hitsGame++;
             printGame();
             JOptionPane.showMessageDialog(null, "Battleship Down!", "Congrats", 
                     JOptionPane.PLAIN_MESSAGE);
-            hits++;
-            hitsGame++;
+            
         }
         else
         {
             game[row][column] = 3;
             //Displays the current state of the game board
+            misses++;
+            missesGame++;
             printGame();
             JOptionPane.showMessageDialog(null, "Missed... Try again!", 
                     "Missed", JOptionPane.ERROR_MESSAGE);
-            misses++;
-            missesGame++;
+            
         }
               
     }
